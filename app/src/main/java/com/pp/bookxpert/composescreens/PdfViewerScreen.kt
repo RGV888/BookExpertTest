@@ -22,8 +22,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.github.barteksc.pdfviewer.PDFView
 import com.pp.bookxpert.utils.AppUtils.downloadPdfFile
+import com.pp.bookxpert.viewmodels.ProductViewModel
 import java.io.File
 
 @Composable
@@ -32,11 +37,19 @@ fun PdfViewerScreen(
     onCloseClick: () -> Unit
 ) {
     val context = LocalContext.current
+    val LocalLifecycleOwner = LocalLifecycleOwner.current
+
+
+
+
     var pdfFile by remember { mutableStateOf<File?>(null) }
 
     LaunchedEffect(Unit) {
         pdfFile = downloadPdfFile(context, pdfUrl)
+
     }
+
+
 
     Box(modifier = Modifier.fillMaxSize()) {
         pdfFile?.let { file ->

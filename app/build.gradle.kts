@@ -12,7 +12,7 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.pp.bookxperttest"
+        applicationId = "com.pp.bookxperttestnew"
         minSdk = 24
         targetSdk = 35
         versionCode = 1

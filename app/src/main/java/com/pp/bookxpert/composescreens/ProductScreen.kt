@@ -32,6 +32,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -41,6 +42,7 @@ import com.google.gson.reflect.TypeToken
 import com.pp.bookxpert.R
 import com.pp.bookxpert.models.ProductEntity
 import com.pp.bookxpert.statehanler.UiState
+import com.pp.bookxpert.viewmodels.AuthViewModel
 import com.pp.bookxpert.viewmodels.ProductViewModel
 
 
@@ -51,6 +53,7 @@ fun ProductScreen(navController: NavController,modifier: Modifier = Modifier,vie
     var selectedProduct by remember { mutableStateOf<ProductEntity?>(null) }
     var showPdf by remember { mutableStateOf(false) }
     var images by remember { mutableStateOf(false) }
+
 
     LaunchedEffect(Unit) {
         viewModel.loadProducts()
@@ -68,6 +71,9 @@ fun ProductScreen(navController: NavController,modifier: Modifier = Modifier,vie
         Column(modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)) {
+
+
+
 
             when (uiState) {
                 is UiState.Loading -> {
@@ -174,8 +180,6 @@ fun ActionButtonsRow(
 
 
 
-
-
 @Composable
 fun EditProductDialog(
     product: ProductEntity,
@@ -184,9 +188,19 @@ fun EditProductDialog(
 ) {
     val gson = remember { Gson() }
     val mapType = object : TypeToken<Map<String, Any?>>() {}.type
-    val dataMap = remember { mutableStateOf(gson.fromJson<Map<String, Any?>>(product.dataJson, mapType)) }
+
+    val dataMap = remember {
+        mutableStateOf(
+            if (product.dataJson != "null" && product.dataJson.isNotBlank()) {
+                gson.fromJson<Map<String, Any?>>(product.dataJson, mapType)
+            } else {
+                emptyMap()
+            }
+        )
+    }
 
     var name by remember { mutableStateOf(product.name) }
+
     var color by remember { mutableStateOf(dataMap.value["color"]?.toString() ?: "") }
     var capacity by remember { mutableStateOf(dataMap.value["capacity"]?.toString() ?: "") }
 
@@ -196,19 +210,30 @@ fun EditProductDialog(
         text = {
             Column {
                 OutlinedTextField(value = name, onValueChange = { name = it }, label = { Text("Name") })
-                OutlinedTextField(value = color, onValueChange = { color = it }, label = { Text("Color") })
-                OutlinedTextField(value = capacity, onValueChange = { capacity = it }, label = { Text("Capacity") })
+
+                if (dataMap.value.containsKey("color")) {
+                    OutlinedTextField(value = color, onValueChange = { color = it }, label = { Text("Color") })
+                }
+
+                if (dataMap.value.containsKey("capacity")) {
+                    OutlinedTextField(value = capacity, onValueChange = { capacity = it }, label = { Text("Capacity") })
+                }
             }
         },
         confirmButton = {
             TextButton(onClick = {
-                val updatedMap = dataMap.value.toMutableMap().apply {
-                    put("color", color)
-                    put("capacity", capacity)
+                val updatedMap = dataMap.value.toMutableMap()
+
+                if (dataMap.value.containsKey("color")) {
+                    updatedMap["color"] = color
                 }
-                val updatedJson = gson.toJson(updatedMap)
-                product.name=name
-                onUpdate(product.copy(dataJson = updatedJson))
+                if (dataMap.value.containsKey("capacity")) {
+                    updatedMap["capacity"] = capacity
+                }
+
+                val updatedJson = if (updatedMap.isNotEmpty()) gson.toJson(updatedMap) else "null"
+
+                onUpdate(product.copy(name = name, dataJson = updatedJson))
                 onDismiss()
             }) {
                 Text("Update")
@@ -219,7 +244,6 @@ fun EditProductDialog(
         }
     )
 }
-
 
 @Composable
 fun ProductCard(

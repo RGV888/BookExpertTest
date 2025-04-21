@@ -1,5 +1,6 @@
 package com.pp.bookxpert.viewmodels
 
+import android.provider.Contacts.Intents.UI
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -9,6 +10,9 @@ import com.google.firebase.auth.FirebaseUser
 import com.pp.bookxpert.models.UserEntity
 import com.pp.bookxpert.repo.AuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,7 +22,7 @@ class AuthViewModel @Inject constructor(
 ) : ViewModel() {
 
     var user by mutableStateOf<UserEntity?>(null)
-        private set
+
 
     fun saveUser(user: FirebaseUser) {
         viewModelScope.launch {
@@ -27,9 +31,6 @@ class AuthViewModel @Inject constructor(
         }
     }
 
-    fun loadUser() {
-        viewModelScope.launch {
-            user = repo.getUser()
-        }
-    }
+
+
 }

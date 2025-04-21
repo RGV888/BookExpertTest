@@ -1,44 +1,26 @@
 {
   "project_info": {
-    "project_number": "784365656082",
-    "project_id": "bookxeperttest",
-    "storage_bucket": "bookxeperttest.firebasestorage.app"
+    "project_number": "128118764399",
+    "project_id": "bookxpert-d018e",
+    "storage_bucket": "bookxpert-d018e.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:784365656082:android:82b58b3044dbeeeae3a0cb",
+        "mobilesdk_app_id": "1:128118764399:android:e45f82ee5616cb0edd2e9a",
         "android_client_info": {
-          "package_name": "com.pp.bookxperttest"
+          "package_name": "com.pp.bookxperttestnew"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "784365656082-0i00ojdkm36jjlij2kkcfq38c8ijpa1j.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.pp.bookxperttest",
-            "certificate_hash": "885207767692ca954287007feed8ba1c093705c9"
-          }
-        },
-        {
-          "client_id": "784365656082-2d1s68kcrhtd7qlib6kka3eeu5r5siuh.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDuLvYVVHhRkyupbSdTW1PXfhUIPB9uxQg"
+          "current_key": "AIzaSyCdpisRkd3D-H_dY_uUckAsxe86rjPiikc"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "784365656082-2d1s68kcrhtd7qlib6kka3eeu5r5siuh.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

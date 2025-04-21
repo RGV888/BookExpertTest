@@ -72,8 +72,19 @@ class ProductViewModel @Inject constructor(
 }
 
 
+//revstring
 
+fun RevString(){
 
+    var name="Prasad"
+    var revStr=""
+    for (index in name.length-1 downTo 0){
+        revStr += revStr[index]
+    }
+
+    print(revStr)
+
+}
 
 
 

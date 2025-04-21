@@ -52,7 +52,8 @@ fun GoogleSignInScreen(
 
     val signInClient = remember {
         val options = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("559948087234-uqrhi6prurs833jd345ev4d3d3frq44k.apps.googleusercontent.com")
+           // .requestIdToken("665039113315-qglrptg1o9h125bceuap9p0jqip5pbge.apps.googleusercontent.com")
+            .requestIdToken("128118764399-r9v8ksk4crepacr4rlb4lusd9nmfgla5.apps.googleusercontent.com")
             .requestEmail()
             .build()
         GoogleSignIn.getClient(context, options)

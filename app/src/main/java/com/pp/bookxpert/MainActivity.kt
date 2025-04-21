@@ -77,6 +77,28 @@ fun MainScreen() {
                     }
                 }
     }
+
+
+
+
+
+}
+
+class DatabaseEx {
+    companion object{
+
+        val instance : DatabaseEx by lazy {
+            DatabaseEx()
+        }
+    }
+
+
+
+    fun query() {
+        println("Query executed")
+    }
+
+
 }
 
 
